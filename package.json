@@ -1,0 +1,19 @@
+{
+  "name": "serverlessplus",
+  "version": "0.0.3",
+  "description": "serverless your express/koa/restify app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "serverless",
+    "express",
+    "koa",
+    "restify",
+    "scf",
+    "tencent cloud"
+  ],
+  "author": "ritchiechen",
+  "license": "Apache"
+}
