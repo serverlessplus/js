@@ -4,8 +4,8 @@ const http = require('http');
 const url = require('url');
 
 class Proxy {
-    constructor(requestListener, options) {
-        this.server = http.createServer(requestListener);
+    constructor(server, options) {
+        this.server = server;
         this.server.on('error', (error) => {
             if (error.code == 'EADDRINUSE') {
                 this.start();
@@ -17,11 +17,11 @@ class Proxy {
         this.start();
     }
 
-    start() {
+    async start() {
         // communicate via a unix socket
         let sock = `/tmp/plus-${Math.random().toString(36).slice(2)}.sock`;
         this.sock = sock;
-        this.server.listen(sock);
+        await this.server.listen(sock);
     }
 
     getRemoteIP(event) {
@@ -100,8 +100,14 @@ class Proxy {
     }
 
     async serveRequest(event, context) {
-        if (!this.server.listening) {
-            await this.start();
+        if (this.options.framework == 'restify') {
+            if (!this.server.server.listening) {
+                await this.start();
+            }
+        } else {
+            if (!this.server.listening) {
+                await this.start();
+            }
         }
 
         let options = this.buildRequestOptions(event, context);
@@ -119,8 +125,24 @@ class Proxy {
     }
 }
 
-function createProxy(requestListener, options) {
-    return new Proxy(requestListener, options);
+function createProxy(app, options) {
+    let createOptions = options || {};
+    let framework = createOptions.framework || '';
+    framework = framework.toLowerCase();
+    switch (framework) {
+    case 'express':
+        return new Proxy(http.createServer(app), createOptions);
+    case 'koa':
+    case 'koa2':
+        return new Proxy(http.createServer(app.callback()), createOptions);
+    case 'restify':
+        return new Proxy(app, createOptions);
+    default:
+        // if (typeof app.listen === 'function') {
+        //     return new Proxy(app, createOptions);
+        // }
+        throw new Error('please specify `framework` field in options');
+    }
 }
 
 exports.createProxy = createProxy;
