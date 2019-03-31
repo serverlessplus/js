@@ -100,6 +100,7 @@ class Proxy {
     }
 
     async serveRequest(event, context) {
+        // restify.Server wraps http.Server
         if (this.options.framework == 'restify') {
             if (!this.server.server.listening) {
                 await this.start();
