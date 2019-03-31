@@ -1,4 +1,4 @@
-# serverlessplus
+# Serverless + JavaScript
 
 ## 简介
 
@@ -9,8 +9,6 @@
 ```shell
 $ npm install serverlessplus
 ```
-
-## 示例
 
 假设有如下 `express` 应用：
 ```js
@@ -60,6 +58,7 @@ const options = {
         'image/png',
         'image/jpeg',
     ],
+    framework: 'express',
 };
 
 const proxy = serverlessplus.createProxy(app, options);
@@ -69,6 +68,18 @@ exports.main_handler = (event, context) => {
 }
 ```
 
+## 示例
+
+- [express 示例](https://github.com/serverlessplus/express-example)
+- [koa 示例](https://github.com/serverlessplus/koa-example)
+- [restify 示例](https://github.com/serverlessplus/restify-example)
+
+## 支持的框架
+
+- [express](https://expressjs.com)
+- [koa](https://koajs.com)
+- [restify](http://restify.com)
+
 ## 项目状态
 
-`serverlessplus` 处于活跃开发中，`API` 可能中未来的版本中发生变更。
+`serverlessplus` 处于活跃开发中，`API` 可能在未来的版本中发生变更。
