@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serverlessplus/js.git"
+  },
   "keywords": [
     "serverless",
     "express",
@@ -15,5 +19,9 @@
     "tencent cloud"
   ],
   "author": "chenhengqi",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/serverlessplus/js/issues"
+  },
+  "homepage": "https://github.com/serverlessplus/js#readme"
 }
