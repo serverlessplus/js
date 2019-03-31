@@ -2,7 +2,7 @@
 
 ## 简介
 
-`serverlessplus` 是一个简单易用的工具，它可以帮助你将现有的 `express` / `koa` / `restify` 等框架构建的应用迁移到[腾讯云无服务云函数](https://cloud.tencent.com/product/scf)（Tencent Cloud Serverless Cloud Function）上。
+`serverlessplus` 是一个简单易用的工具，它可以帮助你将现有的 `express` / `koa` / `restify` 等框架构建的应用借助 [API 网关](https://cloud.tencent.com/product/apigateway) 迁移到 [腾讯云无服务云函数](https://cloud.tencent.com/product/scf)（Tencent Cloud Serverless Cloud Function）上。
 
 ## 开始使用
 
@@ -79,7 +79,11 @@ exports.main_handler = (event, context) => {
 - [express](https://expressjs.com)
 - [koa](https://koajs.com)
 - [restify](http://restify.com)
+- ...
 
-## 项目状态
+## 路线图
 
-`serverlessplus` 处于活跃开发中，`API` 可能在未来的版本中发生变更。
+- 更多 Web 框架的支持
+- 对小程序云开发的支持
+
+`serverlessplus` 处于活跃开发中，`API` 可能在未来的版本中发生变更，我们十分欢迎来自社区的贡献，你可以通过 pull request 或者 issue 来参与。
