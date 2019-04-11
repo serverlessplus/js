@@ -1,8 +1,12 @@
 {
   "name": "serverlessplus",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "serverless your express/koa/restify app",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "middleware.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
