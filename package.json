@@ -1,6 +1,6 @@
 {
   "name": "serverlessplus",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "serverless your express/koa/restify app",
   "main": "index.js",
   "files": [

@@ -88,6 +88,11 @@ class Proxy {
             // set content type to empty string if not specify explicitly
             // otherwise API Gateway would set it to `application/json`
             headers['Content-Type'] = headers['content-type'] || '';
+            // if response has `Set-Cookie` header, we can only send the first one
+            // due to the bugs in API Gateway, it does NOT follow the HTTP specification
+            if ('set-cookie' in headers && Array.isArray(headers['set-cookie'])) {
+                headers['set-cookie'] = headers['set-cookie'][0];
+            }
             let isBinaryContentType = this.isBinaryContentType(headers['Content-Type']);
             let payload = Buffer.concat(buffer).toString(isBinaryContentType ? 'base64' : 'utf8');
             context.succeed({
@@ -122,7 +127,7 @@ class Proxy {
         }
         request.end();
         // return a promise that never resolves
-        return new Promise((resolve, reject) => {});
+        return new Promise((resolve, reject) => { });
     }
 }
 
@@ -131,18 +136,18 @@ function createProxy(app, options) {
     let framework = createOptions.framework || '';
     framework = framework.toLowerCase();
     switch (framework) {
-    case 'express':
-        return new Proxy(http.createServer(app), createOptions);
-    case 'koa':
-    case 'koa2':
-        return new Proxy(http.createServer(app.callback()), createOptions);
-    case 'restify':
-        return new Proxy(app, createOptions);
-    default:
-        // if (typeof app.listen === 'function') {
-        //     return new Proxy(app, createOptions);
-        // }
-        throw new Error('please specify `framework` field in options');
+        case 'express':
+            return new Proxy(http.createServer(app), createOptions);
+        case 'koa':
+        case 'koa2':
+            return new Proxy(http.createServer(app.callback()), createOptions);
+        case 'restify':
+            return new Proxy(app, createOptions);
+        default:
+            // if (typeof app.listen === 'function') {
+            //     return new Proxy(app, createOptions);
+            // }
+            throw new Error('please specify `framework` field in options');
     }
 }
 
